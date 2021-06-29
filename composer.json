@@ -1,0 +1,30 @@
+{
+    "name": "lizhineng/nova-gatekeeper",
+    "description": "Gatekeeper Nova tool.",
+    "keywords": [
+        "laravel",
+        "nova"
+    ],
+    "license": "MIT",
+    "require": {
+        "php": "^8.0",
+        "lizhineng/gatekeeper": "dev-main"
+    },
+    "autoload": {
+        "psr-4": {
+            "Zhineng\\NovaGatekeeper\\": "src/"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Zhineng\\NovaGatekeeper\\ToolServiceProvider"
+            ]
+        }
+    },
+    "config": {
+        "sort-packages": true
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
+}
