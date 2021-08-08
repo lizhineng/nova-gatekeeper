@@ -2,6 +2,8 @@
 
 namespace Zhineng\NovaGatekeeper;
 
+use Illuminate\Http\Request;
+use Laravel\Nova\ResourceCollection;
 use Laravel\Nova\Tool;
 use Zhineng\NovaGatekeeper\Resources\Permission;
 use Zhineng\NovaGatekeeper\Resources\Role;
@@ -26,8 +28,24 @@ class NovaGatekeeper extends Tool
     public function renderNavigation()
     {
         return view('nova-gatekeeper::navigation', [
-            'resources' => static::resources(),
+            'resources' => static::resourcesForNavigation(request()),
         ]);
+    }
+
+    public static function resourcesForNavigation(Request $request)
+    {
+        return static::authorizedResources($request)
+            ->all();
+    }
+
+    public static function authorizedResources(Request $request)
+    {
+        return static::resourceCollection()->authorized($request);
+    }
+
+    private static function resourceCollection()
+    {
+        return ResourceCollection::make(static::resources());
     }
 
     public static function resources(): array
