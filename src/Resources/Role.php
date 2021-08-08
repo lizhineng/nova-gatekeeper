@@ -10,7 +10,6 @@ use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Http\Requests\NovaRequest;
 use Laravel\Nova\Resource;
-use Zhineng\Gatekeeper\Manager as Gatekeeper;
 
 class Role extends Resource
 {
@@ -43,7 +42,7 @@ class Role extends Resource
                         $model->{$attribute}()->sync($permissions->filter()->keys());
                     };
                 })
-                ->options(Gatekeeper::getInstance()->permissions()->pluck('name', 'id')),
+                ->options(app('gatekeeper')->permissions()->pluck('name', 'id')),
 
             DateTime::make(__('nova-gatekeeper::resource.creation_date'), 'created_at')
                 ->onlyOnDetail(),
