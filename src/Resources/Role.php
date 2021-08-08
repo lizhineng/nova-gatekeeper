@@ -10,6 +10,7 @@ use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Http\Requests\NovaRequest;
 use Laravel\Nova\Resource;
+use Zhineng\NovaGatekeeper\Actions\CacheClearAction;
 
 class Role extends Resource
 {
@@ -49,6 +50,13 @@ class Role extends Resource
 
             DateTime::make(__('nova-gatekeeper::resource.last_update'), 'updated_at')
                 ->exceptOnForms(),
+        ];
+    }
+
+    public function actions(Request $request)
+    {
+        return [
+            CacheClearAction::make()->standalone(),
         ];
     }
 
